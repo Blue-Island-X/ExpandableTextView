@@ -1,10 +1,10 @@
 package com.zld.expandabletextview
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.zld.expandlayout.ExpandLayout
 
 /**
@@ -12,7 +12,7 @@ import com.zld.expandlayout.ExpandLayout
  *
  *
  **/
-class MyAdapter(private var context: Context, private var list: List<TextBean>) : RecyclerView.Adapter<MyAdapter.Companion.MyViewHolder>() {
+class MyAdapter(private var context: Context, private var list: List<String>) : RecyclerView.Adapter<MyAdapter.Companion.MyViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -20,19 +20,13 @@ class MyAdapter(private var context: Context, private var list: List<TextBean>) 
     }
 
     override fun getItemCount(): Int {
-        return if (list == null) 0 else list.size
+        return list.size
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        var bean = list[holder.adapterPosition]
-        holder.expandLayout.setText(bean.text, bean.expand, object : ExpandLayout.OnExpandListener {
-            override fun expandChange() {
-                bean.expand = !bean.expand
-                notifyItemChanged(holder.adapterPosition)
-            }
-        })
+        val text = list[position]
+        holder.expandLayout.setContent(text)
     }
-
 
     companion object {
         class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
