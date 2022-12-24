@@ -16,6 +16,7 @@ import com.zld.expandlayout.databinding.LayoutExpandViewBinding
 class ExpandLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
 
     private var binding: LayoutExpandViewBinding
+    private var mListener: ExpandLayoutListener? = null
 
     private var maxCollapsedLines = 3
     private var contentTextSize = 18f
@@ -74,6 +75,30 @@ class ExpandLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
             binding.etvContent.toggleExpand()
         }
         binding.etvContent.setText(text, object : ExpandTextViewCallback {
+            override fun onExpand() {
+                binding.tvTip.visibility = View.VISIBLE
+                binding.tvTip.text = collapseText
+            }
+
+            override fun onCollapse() {
+                binding.tvTip.visibility = View.VISIBLE
+                binding.tvTip.text = expandText
+            }
+
+            override fun onLoss() {
+                binding.tvTip.visibility = View.GONE
+            }
+        })
+    }
+
+    fun setContent(text: String, expand: Boolean, listener: ExpandLayoutListener) {
+        mListener = listener
+
+        binding.tvTip.setOnClickListener {
+            mListener?.onToggleState()
+            binding.etvContent.toggleExpand()
+        }
+        binding.etvContent.setText(text, expand, object : ExpandTextViewCallback {
             override fun onExpand() {
                 binding.tvTip.visibility = View.VISIBLE
                 binding.tvTip.text = collapseText

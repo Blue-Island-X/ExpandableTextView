@@ -116,4 +116,12 @@ class ExpandTextView @JvmOverloads constructor(context: Context, attrs: Attribut
 
         setText(text)
     }
+
+    fun setText(text: String, expand: Boolean, callback: ExpandTextViewCallback) {
+        mText = text
+        mExpanded = expand
+        mCallback = callback
+
+        setText(text)
+    }
 }

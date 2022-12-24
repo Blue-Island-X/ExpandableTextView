@@ -12,7 +12,7 @@
 	implementation 'com.github.Blue-Island-X:ExpandableTextView:v1.0.1'  
 
 ### 2、使用
-在 RecyclerView 的 Item 布局中按需声明如下：
+在布局中按需声明如下：
 ```Xml
 	<com.zld.expandlayout.ExpandLayout
 	    android:id="@+id/expand_layout"
@@ -31,11 +31,20 @@
 	    app:maxCollapsedLines="3"
 	    app:middlePadding="5dp" />
 ```
-在 RecyclerView 的 onBindViewHolder 方法中设置 ExpandLayout 的文字内容  
+#### 1、普通使用
 ```Kotlin
-holder.expandLayout.setContent(text)
+binding.expandLayout.setContent(text)
 ```
-配置好以上，就OK了
+
+#### 2、RecyclerView 中使用
+在 onBindViewHolder 方法中设置 ExpandLayout 的文字内容、展开状态和及展开监听方法中将实体类的布尔型字段取反
+```Kotlin
+holder.expandLayout.setContent(item.text, item.expand, object : ExpandLayoutListener {
+    override fun onToggleStatus() {
+        item.expand = !item.expand
+    }
+})
+```
 
 ### 3、XML中配置的属性说明
 
