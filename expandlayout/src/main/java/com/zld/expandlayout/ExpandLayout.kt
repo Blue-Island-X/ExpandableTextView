@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import com.zld.expandlayout.databinding.LayoutExpandViewBinding
 
 /**
@@ -13,7 +13,7 @@ import com.zld.expandlayout.databinding.LayoutExpandViewBinding
  *
  *
  **/
-class ExpandLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : LinearLayout(context, attrs, defStyleAttr) {
+class ExpandLayout @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RelativeLayout(context, attrs, defStyleAttr) {
 
     private var binding: LayoutExpandViewBinding
 
@@ -30,7 +30,7 @@ class ExpandLayout @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     init {
         initAttrs(context, attrs, defStyleAttr)
-        orientation = VERTICAL
+
         binding = LayoutExpandViewBinding.inflate(LayoutInflater.from(context), this, true)
         binding.etvContent.setMaxLineCount(maxCollapsedLines)
         binding.etvContent.textSize = DensityUtil.px2sp(context, contentTextSize)
